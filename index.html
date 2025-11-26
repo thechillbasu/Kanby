@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kanban Board</title>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
+        crossorigin="anonymous">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Kanban Sticky Notes Board</h1>
+    </header>
+    
+    <!-- Add new note -->
+    <form id="addNoteForm">
+      <input 
+        type="text" 
+        id="noteText" 
+        placeholder="Enter note text..." 
+        maxlength="500"
+        required>
+      
+      <select id="columnSelect">
+        <option value="todo">To Do</option>
+        <option value="inprogress">In Progress</option>
+        <option value="done">Done</option>
+      </select>
+      
+      <button type="submit">Add Note</button>
+    </form>
+    
+    <!-- Board columns -->
+    <div class="board">
+      <div class="boardColumn" id="todo">
+        <h2>To Do</h2>
+        <div class="notesContainer"></div>
+      </div>
+      
+      <div class="boardColumn" id="inprogress">
+        <h2>In Progress</h2>
+        <div class="notesContainer"></div>
+      </div>
+      
+      <div class="boardColumn" id="done">
+        <h2>Done</h2>
+        <div class="notesContainer"></div>
+      </div>
+    </div>
+    
+    <div class="emptyState" id="emptyState">
+      <p>Your board is empty. Add your first note to get started!</p>
+    </div>
+  </div>
+  
+  <script src="js/storage.js"></script>
+  <script src="js/dragDrop.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
