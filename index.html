@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kanban Board</title>
+  <title>Kanban Sticky Notes Board</title>
   
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
         crossorigin="anonymous">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
@@ -15,13 +15,11 @@
       <h1>Kanban Sticky Notes Board</h1>
     </header>
     
-    <!-- Add new note -->
     <form id="addNoteForm">
       <input 
         type="text" 
         id="noteText" 
         placeholder="Enter note text..." 
-        maxlength="500"
         required>
       
       <select id="columnSelect">
@@ -33,7 +31,6 @@
       <button type="submit">Add Note</button>
     </form>
     
-    <!-- Board columns -->
     <div class="board">
       <div class="boardColumn" id="todo">
         <h2>To Do</h2>
@@ -51,7 +48,7 @@
       </div>
     </div>
     
-    <div class="emptyState" id="emptyState">
+    <div id="emptyState" class="emptyState">
       <p>Your board is empty. Add your first note to get started!</p>
     </div>
   </div>
@@ -61,5 +58,3 @@
   <script src="js/main.js"></script>
 </body>
 </html>
-
-
