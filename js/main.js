@@ -21,10 +21,8 @@ export function init() {
   }
   
   document.getElementById('addNoteForm').addEventListener('submit', handleFormSubmit);
-  // event delegation for delete buttons
-  document.querySelector('.board').addEventListener('click', handleDeleteClick);
-  // event delegation for note text clicks (edit mode)
-  document.querySelector('.board').addEventListener('click', handleNoteTextClick);
+  // event delegation for delete and edit buttons
+  document.querySelector('.board').addEventListener('click', handleButtonClick);
   
   // Listen for notes updates from drag and drop
   window.addEventListener('notesUpdated', () => {
@@ -51,18 +49,21 @@ function handleFormSubmit(event) {
     return;
   }
   
-  addNote(text, column, priority);
+  // Open modal to add description for new task
+  openTaskModal(null, text, column, priority);
   noteInput.value = '';
   prioritySelect.value = 'medium';
 }
 
-export function addNote(text, column, priority = 'medium') {
+export function addNote(text, column, priority = 'medium', description = '') {
   const newNote = {
     id: Date.now(),               // unique id
     text: text,
+    description: description,
     column: column,
     priority: priority,
     createdAt: Date.now(),
+    lastEditedAt: null,
     startedAt: null,
     completedAt: null,
     timeSpent: 0
@@ -74,14 +75,26 @@ export function addNote(text, column, priority = 'medium') {
   updateEmptyState();
 }
 
-function handleDeleteClick(event) {
+function handleButtonClick(event) {
+  // Handle delete button
   const deleteBtn = event.target.closest('.deleteBtn');
-
   if (deleteBtn) {
     const noteElement = deleteBtn.closest('.stickyNote');
     const noteId = parseInt(noteElement.getAttribute('data-note-id'));
-
     deleteNote(noteId);
+    return;
+  }
+  
+  // Handle edit button
+  const editBtn = event.target.closest('.editBtn');
+  if (editBtn) {
+    const noteElement = editBtn.closest('.stickyNote');
+    const noteId = parseInt(noteElement.getAttribute('data-note-id'));
+    const note = notes.find(n => n.id === noteId);
+    if (note) {
+      openTaskModal(note);
+    }
+    return;
   }
 }
 
@@ -95,118 +108,115 @@ export function deleteNote(noteId) {
   updateEmptyState();
 }
 
-function handleNoteTextClick(event) {
-  const noteText = event.target.closest('.noteText');
+function openTaskModal(note = null, taskText = '', taskColumn = 'todo', taskPriority = 'medium') {
+  // Create modal overlay
+  const modal = document.createElement('div');
+  modal.className = 'taskModal';
+  modal.innerHTML = `
+    <div class="modalContent">
+      <div class="modalHeader">
+        <h2>${note ? 'Edit Task' : 'Add Task Details'}</h2>
+        <button class="modalClose">&times;</button>
+      </div>
+      <div class="modalBody">
+        <div class="formGroup">
+          <label for="modalTaskName">Task Name *</label>
+          <input type="text" id="modalTaskName" value="${note ? note.text : taskText}" required>
+        </div>
+        <div class="formGroup">
+          <label for="modalTaskDescription">Description</label>
+          <textarea id="modalTaskDescription" rows="4" placeholder="Add task description...">${note ? (note.description || '') : ''}</textarea>
+        </div>
+        <div class="formGroup">
+          <label for="modalTaskPriority">Priority</label>
+          <select id="modalTaskPriority">
+            <option value="high" ${(note ? note.priority : taskPriority) === 'high' ? 'selected' : ''}>High</option>
+            <option value="medium" ${(note ? note.priority : taskPriority) === 'medium' ? 'selected' : ''}>Medium</option>
+            <option value="low" ${(note ? note.priority : taskPriority) === 'low' ? 'selected' : ''}>Low</option>
+          </select>
+        </div>
+        ${note && note.lastEditedAt ? `
+          <div class="lastEdited">
+            Last edited: ${formatTimestamp(note.lastEditedAt)}
+          </div>
+        ` : ''}
+      </div>
+      <div class="modalFooter">
+        <button class="btnCancel">Cancel</button>
+        <button class="btnSave">${note ? 'Save Changes' : 'Add Task'}</button>
+      </div>
+    </div>
+  `;
   
-  if (noteText) {
-    const noteElement = noteText.closest('.stickyNote');
-    // Don't enable edit mode if already in edit mode
-    if (!noteElement.classList.contains('editing')) {
-      enableEditMode(noteElement);
+  document.body.appendChild(modal);
+  
+  // Focus on task name input
+  const taskNameInput = modal.querySelector('#modalTaskName');
+  taskNameInput.focus();
+  taskNameInput.select();
+  
+  // Event listeners
+  const closeBtn = modal.querySelector('.modalClose');
+  const cancelBtn = modal.querySelector('.btnCancel');
+  const saveBtn = modal.querySelector('.btnSave');
+  
+  const closeModal = () => {
+    modal.remove();
+  };
+  
+  const saveTask = () => {
+    const newText = taskNameInput.value.trim();
+    const newDescription = modal.querySelector('#modalTaskDescription').value.trim();
+    const newPriority = modal.querySelector('#modalTaskPriority').value;
+    
+    if (newText.length === 0) {
+      taskNameInput.classList.add('invalidInput');
+      setTimeout(() => taskNameInput.classList.remove('invalidInput'), 500);
+      return;
     }
-  }
-}
-
-export function enableEditMode(noteElement) {
-  const noteId = parseInt(noteElement.getAttribute('data-note-id'));
-  const note = notes.find(n => n.id === noteId);
+    
+    if (note) {
+      // Update existing note
+      note.text = newText;
+      note.description = newDescription;
+      note.priority = newPriority;
+      note.lastEditedAt = Date.now();
+      saveNotes(notes);
+      renderNotes(notes);
+    } else {
+      // Create new note
+      addNote(newText, taskColumn, newPriority, newDescription);
+    }
+    
+    closeModal();
+  };
   
-  if (!note) return;
+  closeBtn.addEventListener('click', closeModal);
+  cancelBtn.addEventListener('click', closeModal);
+  saveBtn.addEventListener('click', saveTask);
   
-  // Mark note as being edited
-  noteElement.classList.add('editing');
-  
-  // Disable dragging during edit mode
-  noteElement.setAttribute('draggable', 'false');
-  
-  const noteTextElement = noteElement.querySelector('.noteText');
-  const originalText = note.text;
-  
-  // Store original text as data attribute for cancel functionality
-  noteElement.setAttribute('data-original-text', originalText);
-  
-  // Create input field
-  const input = document.createElement('input');
-  input.type = 'text';
-  input.className = 'noteEditInput';
-  input.value = originalText;
-  
-  // Replace text with input
-  noteTextElement.style.display = 'none';
-  noteElement.insertBefore(input, noteTextElement);
-  
-  // Focus the input and select all text
-  input.focus();
-  input.select();
-  
-  // Add event listeners
-  input.addEventListener('blur', () => saveEdit(noteElement));
-  input.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      saveEdit(noteElement);
-    } else if (e.key === 'Escape') {
-      e.preventDefault();
-      cancelEdit(noteElement);
+  // Close on outside click
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      closeModal();
     }
   });
-}
-
-export function saveEdit(noteElement) {
-  const noteId = parseInt(noteElement.getAttribute('data-note-id'));
-  const note = notes.find(n => n.id === noteId);
   
-  if (!note) return;
+  // Close on Escape key
+  document.addEventListener('keydown', function escapeHandler(e) {
+    if (e.key === 'Escape') {
+      closeModal();
+      document.removeEventListener('keydown', escapeHandler);
+    }
+  });
   
-  const input = noteElement.querySelector('.noteEditInput');
-  if (!input) return;
-  
-  const newText = input.value.trim();
-  
-  // Validate: reject empty or whitespace-only text
-  if (newText.length === 0) {
-    // Restore original text without saving
-    cancelEdit(noteElement);
-    return;
-  }
-  
-  // Update note data
-  note.text = newText;
-  
-  // Persist to storage
-  saveNotes(notes);
-  
-  // Exit edit mode and restore note display
-  exitEditMode(noteElement, newText);
-}
-
-export function cancelEdit(noteElement) {
-  const originalText = noteElement.getAttribute('data-original-text');
-  
-  // Exit edit mode and restore original text
-  exitEditMode(noteElement, originalText);
-}
-
-function exitEditMode(noteElement, textToDisplay) {
-  // Remove editing class
-  noteElement.classList.remove('editing');
-  
-  // Re-enable dragging
-  noteElement.setAttribute('draggable', 'true');
-  
-  // Remove input field
-  const input = noteElement.querySelector('.noteEditInput');
-  if (input) {
-    input.remove();
-  }
-  
-  // Show and update text element
-  const noteTextElement = noteElement.querySelector('.noteText');
-  noteTextElement.textContent = textToDisplay;
-  noteTextElement.style.display = '';
-  
-  // Clean up data attribute
-  noteElement.removeAttribute('data-original-text');
+  // Save on Enter in task name field
+  taskNameInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      saveTask();
+    }
+  });
 }
 
 export function createNoteElement(note) {
@@ -220,16 +230,34 @@ export function createNoteElement(note) {
     noteDiv.appendChild(priorityBadge);
   }
   
+  // Add edit button (absolute positioned at top-right, before delete)
+  const editBtn = document.createElement('button');
+  editBtn.className = 'editBtn';
+  editBtn.innerHTML = '<i class="fas fa-edit"></i>';
+  editBtn.title = 'Edit task';
+  noteDiv.appendChild(editBtn);
+  
   // Add delete button (absolute positioned at top-right)
   const deleteBtn = document.createElement('button');
   deleteBtn.className = 'deleteBtn';
   deleteBtn.innerHTML = '<i class="fas fa-trash"></i>';
+  deleteBtn.title = 'Delete task';
   noteDiv.appendChild(deleteBtn);
   
   // Add main text
   const textP = document.createElement('p');
   textP.className = 'noteText';
   textP.textContent = note.text;
+  
+  // Add description indicator if description exists
+  if (note.description && note.description.trim().length > 0) {
+    const descIndicator = document.createElement('span');
+    descIndicator.className = 'descriptionIndicator';
+    descIndicator.innerHTML = '<i class="fas fa-align-left"></i>';
+    descIndicator.title = 'Has description';
+    textP.appendChild(descIndicator);
+  }
+  
   noteDiv.appendChild(textP);
   
   // Add timestamp display for To Do column

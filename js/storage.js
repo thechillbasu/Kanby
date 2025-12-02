@@ -16,9 +16,11 @@ export function migrateNote(note) {
   return {
     id: note.id,
     text: note.text,
+    description: note.description || '',
     column: note.column,
     priority: note.priority || 'medium',
     createdAt: note.createdAt || Date.now(),
+    lastEditedAt: note.lastEditedAt || null,
     startedAt: note.startedAt || null,
     completedAt: note.completedAt || null,
     timeSpent: note.timeSpent || 0
