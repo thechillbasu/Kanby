@@ -100,6 +100,63 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: calc(100vh - 400px);
+  padding-right: var(--space-xs);
+}
+
+/* Custom scrollbar for board columns */
+.notesContainer::-webkit-scrollbar {
+  width: 6px;
+}
+
+.notesContainer::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: var(--radius-sm);
+}
+
+.notesContainer::-webkit-scrollbar-thumb {
+  background: rgba(0, 240, 255, 0.3);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+}
+
+.notesContainer::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 240, 255, 0.5);
+}
+
+/* Firefox scrollbar */
+.notesContainer {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 240, 255, 0.3) rgba(0, 0, 0, 0.2);
+}
+
+/* To Do column scrollbar - cyan */
+#todo .notesContainer::-webkit-scrollbar-thumb {
+  background: rgba(0, 240, 255, 0.4);
+}
+
+#todo .notesContainer::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 240, 255, 0.6);
+}
+
+/* In Progress column scrollbar - lime */
+#inprogress .notesContainer::-webkit-scrollbar-thumb {
+  background: rgba(204, 255, 0, 0.4);
+}
+
+#inprogress .notesContainer::-webkit-scrollbar-thumb:hover {
+  background: rgba(204, 255, 0, 0.6);
+}
+
+/* Done column scrollbar - violet */
+#done .notesContainer::-webkit-scrollbar-thumb {
+  background: rgba(157, 0, 255, 0.4);
+}
+
+#done .notesContainer::-webkit-scrollbar-thumb:hover {
+  background: rgba(157, 0, 255, 0.6);
 }
 
 /* Visual feedback when dragging a card over a column */

@@ -1,0 +1,187 @@
+/* Header Responsive Styles
+ * 
+ * Media queries for responsive header layout across different screen sizes.
+ * Handles mobile, tablet, and desktop breakpoints for all header components.
+ */
+
+/* Tablet and smaller desktop */
+@media (max-width: 1024px) {
+  .app-header {
+    padding: var(--space-md) var(--space-lg);
+  }
+  
+  .live-clock {
+    min-width: 180px;
+  }
+  
+  .app-title {
+    font-size: var(--font-size-xl);
+  }
+}
+
+/* Mobile landscape and tablet portrait */
+@media (max-width: 768px) {
+  .app-header {
+    min-height: auto;
+    padding: var(--space-md);
+    gap: var(--space-md);
+  }
+  
+  .app-header__left {
+    flex: 1;
+    flex-basis: auto;
+    order: 1;
+  }
+  
+  .app-header__center {
+    order: 0;
+    width: 100%;
+    flex-basis: 100%;
+    margin-bottom: 0;
+  }
+  
+  .app-header__right {
+    flex: 0 0 auto;
+    flex-basis: auto;
+    order: 2;
+    justify-content: flex-end;
+  }
+  
+  .live-clock {
+    width: 100%;
+    padding: var(--space-md) var(--space-lg);
+  }
+  
+  .theme-toggle {
+    padding: var(--space-sm) var(--space-md);
+    white-space: nowrap;
+  }
+  
+  .my-events-btn {
+    padding: var(--space-sm) var(--space-md);
+    white-space: nowrap;
+  }
+  
+  .app-title {
+    font-size: var(--font-size-xl);
+  }
+  
+  .clock-time {
+    font-size: var(--font-size-lg);
+    letter-spacing: 1.5px;
+  }
+  
+  .clock-date {
+    font-size: 10px;
+  }
+  
+  .clock-hint {
+    display: none;
+  }
+  
+  .calendar-popup {
+    left: 50%;
+    transform: translateX(-50%) translateY(-10px);
+  }
+  
+  .calendar-popup.active {
+    transform: translateX(-50%) translateY(0);
+  }
+  
+  .google-calendar-panel__container {
+    width: calc(100vw - 32px);
+    max-width: 850px;
+    height: auto;
+    max-height: 90vh;
+  }
+
+  .google-holiday-calendar-iframe {
+    width: 100%;
+    max-width: 100%;
+    height: 480px;
+    min-height: 380px;
+  }
+  
+  .google-calendar-panel__content {
+    padding: var(--space-sm);
+    overflow: hidden;
+  }
+  
+  .my-events-btn__label {
+    display: none;
+  }
+  
+  .google-calendar-popup {
+    min-width: calc(100vw - 40px);
+    max-width: calc(100vw - 40px);
+    padding: var(--space-lg);
+  }
+}
+
+/* Mobile portrait */
+@media (max-width: 480px) {
+  .app-header {
+    padding: var(--space-sm) var(--space-md);
+    gap: var(--space-sm);
+  }
+  
+  .app-title {
+    font-size: var(--font-size-lg);
+  }
+  
+  .clock-time {
+    font-size: var(--font-size-base);
+    letter-spacing: 1px;
+  }
+  
+  .clock-date {
+    font-size: 9px;
+  }
+  
+  .live-clock {
+    padding: var(--space-sm) var(--space-md);
+  }
+  
+  .theme-toggle {
+    padding: var(--space-sm) var(--space-md);
+    min-width: 100px;
+    gap: var(--space-xs);
+  }
+  
+  .theme-toggle__label {
+    font-size: 11px;
+  }
+  
+  .theme-toggle i {
+    font-size: var(--font-size-sm);
+  }
+  
+  .title-underline {
+    width: 80px;
+  }
+  
+  .app-subtitle {
+    font-size: 9px;
+  }
+  
+  .google-calendar-panel__container {
+    width: calc(100vw - 24px);
+    height: auto;
+    max-height: 92vh;
+  }
+  
+  .google-holiday-calendar-iframe {
+    height: 420px;
+    min-height: 320px;
+    border-radius: var(--radius-md);
+  }
+  
+  .google-calendar-panel__content {
+    padding: var(--space-xs);
+    overflow: hidden;
+  }
+  
+  .google-calendar-panel__header h2 {
+    font-size: 1.25rem;
+  }
+}

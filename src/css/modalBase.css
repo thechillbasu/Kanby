@@ -31,7 +31,9 @@
   width: 90%;
   max-width: 600px;
   max-height: 90vh;
-  overflow-y: auto;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
   box-shadow: var(--shadow-xl), 0 0 60px rgba(0, 240, 255, 0.2);
   border: 1px solid rgba(0, 240, 255, 0.2);
   animation: slideUp var(--transition-base);
@@ -82,6 +84,37 @@
 }
 .modalBody {
   padding: var(--space-xl);
+  overflow-y: auto;
+  overflow-x: hidden;
+  flex: 1;
+  min-height: 0;
+}
+
+/* Custom scrollbar styling for modal */
+.modalBody::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modalBody::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: var(--radius-sm);
+  margin: var(--space-xs);
+}
+
+.modalBody::-webkit-scrollbar-thumb {
+  background: rgba(0, 240, 255, 0.3);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+}
+
+.modalBody::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 240, 255, 0.5);
+}
+
+/* Firefox scrollbar */
+.modalBody {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 240, 255, 0.3) rgba(0, 0, 0, 0.2);
 }
 .modalFooter {
   display: flex;

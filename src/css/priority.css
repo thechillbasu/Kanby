@@ -52,3 +52,23 @@
   box-shadow: 0 0 20px var(--priority-low-glow);
   transform: scale(1.05);
 }
+
+/* Disable hover effects in details modal */
+.detailsView .priorityBadge.priority-high:hover,
+.detailsView .priorityBadge.priority-medium:hover,
+.detailsView .priorityBadge.priority-low:hover {
+  transform: none;
+  box-shadow: 0 0 10px rgba(251, 191, 36, 0.2);
+}
+
+.detailsView .priorityBadge.priority-high:hover {
+  box-shadow: 0 0 10px rgba(255, 0, 102, 0.2);
+}
+
+.detailsView .priorityBadge.priority-medium:hover {
+  box-shadow: 0 0 10px rgba(251, 191, 36, 0.2);
+}
+
+.detailsView .priorityBadge.priority-low:hover {
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+}

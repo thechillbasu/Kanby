@@ -1,0 +1,227 @@
+/* Header Light Mode Theme Overrides
+ * 
+ * Light mode styling overrides for all header components.
+ * Provides alternative color schemes and styling for light theme.
+ */
+
+/* Header container light mode */
+body:not(.dark-mode) .app-header {
+  background: linear-gradient(180deg, 
+    #ffffff 0%, 
+    #f8f9fa 50%, 
+    #ffffff 100%
+  );
+  border-bottom: 1px solid rgba(9, 105, 218, 0.2);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    inset 0 -1px 0 rgba(9, 105, 218, 0.1),
+    0 4px 24px rgba(31, 35, 40, 0.08);
+}
+
+body:not(.dark-mode) .app-header::after {
+  background: linear-gradient(90deg, 
+    transparent 0%,
+    rgba(9, 105, 218, 0.3) 20%,
+    rgba(26, 127, 55, 0.2) 50%,
+    rgba(130, 80, 223, 0.3) 80%,
+    transparent 100%
+  );
+}
+
+/* Clock light mode */
+body:not(.dark-mode) .live-clock {
+  background: linear-gradient(135deg, 
+    rgba(9, 105, 218, 0.08) 0%,
+    rgba(130, 80, 223, 0.08) 100%
+  );
+  border-color: rgba(9, 105, 218, 0.25);
+}
+
+body:not(.dark-mode) .live-clock:hover {
+  border-color: rgba(0, 240, 255, 0.5);
+  background: linear-gradient(135deg, 
+    rgba(9, 105, 218, 0.18) 0%,
+    rgba(130, 80, 223, 0.18) 100%
+  );
+  box-shadow: 
+    inset 0 1px 2px rgba(0, 0, 0, 0.1),
+    inset 0 -1px 0 rgba(9, 105, 218, 0.2),
+    0 8px 20px rgba(0, 0, 0, 0.3),
+    0 0 40px rgba(9, 105, 218, 0.25);
+  transform: translateY(-2px);
+}
+
+body:not(.dark-mode) .clock-time {
+  color: #0969da;
+  text-shadow: 0 0 10px rgba(9, 105, 218, 0.2);
+}
+
+body:not(.dark-mode) .clock-date {
+  color: #57606a;
+}
+
+body:not(.dark-mode) .clock-hint {
+  color: #57606a;
+  opacity: 0.8;
+}
+
+body:not(.dark-mode) .live-clock:hover .clock-hint {
+  opacity: 1;
+}
+
+/* Title light mode */
+body:not(.dark-mode) .app-title .word-kanban {
+  background: linear-gradient(135deg, #0969da, #1a7f37);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+body:not(.dark-mode) .app-title .word-sticky {
+  background: linear-gradient(135deg, #1a7f37, #8250df);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+body:not(.dark-mode) .app-title .word-notes {
+  background: linear-gradient(135deg, #8250df, #0969da);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+body:not(.dark-mode) .title-underline {
+  background: linear-gradient(90deg, 
+    transparent 0%,
+    #0969da 50%,
+    transparent 100%
+  );
+  box-shadow: 0 0 8px rgba(9, 105, 218, 0.3);
+}
+
+body:not(.dark-mode) .app-subtitle {
+  color: #57606a;
+  opacity: 1;
+}
+
+/* Theme toggle light mode */
+body:not(.dark-mode) .theme-toggle {
+  border-color: rgba(9, 105, 218, 0.3);
+  background: linear-gradient(135deg, 
+    rgba(9, 105, 218, 0.08) 0%,
+    rgba(130, 80, 223, 0.08) 100%
+  );
+  box-shadow: 
+    inset 0 1px 2px rgba(0, 0, 0, 0.1),
+    inset 0 -1px 0 rgba(9, 105, 218, 0.15),
+    0 4px 12px rgba(0, 0, 0, 0.1),
+    0 0 20px rgba(9, 105, 218, 0.1);
+}
+
+body:not(.dark-mode) .theme-toggle:hover {
+  border-color: #0969da;
+  background: linear-gradient(135deg, 
+    rgba(9, 105, 218, 0.12) 0%,
+    rgba(130, 80, 223, 0.12) 100%
+  );
+  box-shadow: 
+    inset 0 1px 2px rgba(0, 0, 0, 0.1),
+    inset 0 -1px 0 rgba(9, 105, 218, 0.2),
+    0 6px 16px rgba(0, 0, 0, 0.15),
+    0 0 30px rgba(9, 105, 218, 0.2);
+}
+
+/* Connect popup light mode */
+body:not(.dark-mode) .google-calendar-popup {
+  border-color: rgba(9, 105, 218, 0.3);
+  box-shadow: 0 8px 24px rgba(31, 35, 40, 0.15), 0 0 40px rgba(9, 105, 218, 0.08);
+}
+
+body:not(.dark-mode) .btn-connect-google {
+  border-color: rgba(9, 105, 218, 0.3);
+  background: linear-gradient(135deg, 
+    rgba(9, 105, 218, 0.12) 0%,
+    rgba(130, 80, 223, 0.12) 100%
+  );
+  box-shadow: 
+    inset 0 1px 2px rgba(0, 0, 0, 0.1),
+    0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+body:not(.dark-mode) .btn-connect-google:hover {
+  border-color: #0969da;
+  background: linear-gradient(135deg, 
+    rgba(9, 105, 218, 0.16) 0%,
+    rgba(130, 80, 223, 0.16) 100%
+  );
+  box-shadow: 
+    inset 0 1px 2px rgba(0, 0, 0, 0.1),
+    0 4px 12px rgba(0, 0, 0, 0.15),
+    0 0 20px rgba(9, 105, 218, 0.2);
+}
+
+body:not(.dark-mode) .btn-cancel-popup {
+  border-color: rgba(31, 35, 40, 0.2);
+}
+
+body:not(.dark-mode) .btn-cancel-popup:hover {
+  border-color: rgba(31, 35, 40, 0.4);
+  background: rgba(31, 35, 40, 0.05);
+}
+
+/* Calendar panel light mode */
+body:not(.dark-mode) .google-calendar-panel {
+  border-color: rgba(9, 105, 218, 0.2);
+  box-shadow: 0 8px 24px rgba(31, 35, 40, 0.15), 0 0 40px rgba(9, 105, 218, 0.08);
+}
+
+body:not(.dark-mode) .google-calendar-panel__header {
+  background: rgba(9, 105, 218, 0.05);
+  border-bottom-color: rgba(9, 105, 218, 0.1);
+}
+
+body:not(.dark-mode) .close-btn:hover {
+  background: rgba(9, 105, 218, 0.1);
+  color: #0969da;
+}
+
+body:not(.dark-mode) .btn-sign-out {
+  border-color: rgba(31, 35, 40, 0.2);
+  color: var(--text-secondary);
+}
+
+body:not(.dark-mode) .btn-sign-out:hover {
+  background: rgba(207, 34, 46, 0.1);
+  border-color: #cf222e;
+  color: #cf222e;
+}
+
+body:not(.dark-mode) .my-events-btn {
+  border-color: rgba(9, 105, 218, 0.3);
+  background: linear-gradient(135deg, 
+    rgba(9, 105, 218, 0.08) 0%,
+    rgba(130, 80, 223, 0.08) 100%
+  );
+}
+
+body:not(.dark-mode) .my-events-btn:hover {
+  border-color: #0969da;
+  background: linear-gradient(135deg, 
+    rgba(9, 105, 218, 0.12) 0%,
+    rgba(130, 80, 223, 0.12) 100%
+  );
+  box-shadow: 
+    inset 0 1px 2px rgba(0, 0, 0, 0.1),
+    inset 0 -1px 0 rgba(9, 105, 218, 0.2),
+    0 6px 16px rgba(31, 35, 40, 0.15),
+    0 0 30px rgba(9, 105, 218, 0.15);
+}
+
+body:not(.dark-mode) .google-event-item {
+  border-color: rgba(9, 105, 218, 0.1);
+}
+
+body:not(.dark-mode) .google-event-item:hover {
+  border-color: rgba(9, 105, 218, 0.3);
+}

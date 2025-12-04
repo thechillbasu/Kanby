@@ -15,10 +15,17 @@
   <!-- Font Awesome icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
+  <!-- Google Identity Services and API -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="https://apis.google.com/js/api.js" async defer></script>
+  
   <!-- Modular CSS imports -->
   <link rel="stylesheet" href="src/css/variables.css">
   <link rel="stylesheet" href="src/css/base.css">
-  <link rel="stylesheet" href="src/css/header.css">
+  <link rel="stylesheet" href="src/css/headerBase.css">
+  <link rel="stylesheet" href="src/css/headerCalendar.css">
+  <link rel="stylesheet" href="src/css/headerThemes.css">
+  <link rel="stylesheet" href="src/css/headerResponsive.css">
   <link rel="stylesheet" href="src/css/form.css">
   <link rel="stylesheet" href="src/css/board.css">
   <link rel="stylesheet" href="src/css/cards.css">
@@ -51,8 +58,12 @@
     <p class="app-subtitle">Visualize your tasks with drag-and-drop notes</p>
   </div>
 
-  <!-- Theme toggle button -->
+  <!-- Theme toggle and My Events buttons -->
   <div class="app-header__right">
+    <button id="myEventsBtn" class="my-events-btn" title="View My Events" type="button">
+      <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+      <span class="my-events-btn__label">My Events</span>
+    </button>
     <button id="themeToggle" class="theme-toggle" type="button">
       <i class="fas fa-moon" aria-hidden="true"></i>
       <span class="theme-toggle__label">Dark mode</span>
@@ -108,11 +119,91 @@
 
 </div>
 
+<!-- Google Calendar Events Panel -->
+<div id="googleCalendarPanel" class="google-calendar-panel hidden">
+  <div class="google-calendar-panel__backdrop"></div>
+  <div class="google-calendar-panel__container">
+    <div class="google-calendar-panel__header"></div>
+      <h2 id="googleCalendarPanelTitle">Google Calendar</h2>
+      <button id="closeGooglePanelBtn" class="close-btn" aria-label="Close">
+        &times;
+      </button>
+    </div>
+    <div id="googleCalendarIframeContainer" class="google-calendar-panel__content">
+      <iframe
+        src="https://calendar.google.com/calendar/embed?src=en-gb.indian%23holiday%40group.v.calendar.google.com&ctz=Asia%2FKolkata"
+        style="border: 0"
+        width="800"
+        height="600"
+        frameborder="0"
+        scrolling="no"
+        id="googleHolidayCalendarIframe"
+        class="google-holiday-calendar-iframe"
+      ></iframe>
+    </div>
+    <div id="googleEventsListContainer" class="google-events-list-container hidden">
+      <div id="googleEventsList" class="google-events-list">
+        <!-- Events will be populated here -->
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- JavaScript modules -->
 <script src="src/js/storage.js"></script>
 <script src="src/js/dragDrop.js"></script>
 <script src="src/js/theme.js"></script>
-<script src="src/js/liveCapsule.js"></script>
+<script type="module" src="src/js/headerWidgets.js"></script>
 <script type="module" src="src/js/main.js"></script>
+
+<!-- Initialize Google APIs after modules load -->
+<script>
+  // Initialize Google APIs when they become available
+  function initializeGoogleAPIs() {
+    // Check for Google Identity Services
+    if (typeof google !== 'undefined' && google.accounts && typeof window.gisLoaded === 'function') {
+      window.gisLoaded();
+    }
+    
+    // Check for Google API client
+    if (typeof gapi !== 'undefined' && typeof window.gapiLoaded === 'function') {
+      window.gapiLoaded();
+    }
+  }
+  
+  // Try initialization immediately (in case scripts already loaded)
+  initializeGoogleAPIs();
+  
+  // Also try after DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeGoogleAPIs);
+  } else {
+    initializeGoogleAPIs();
+  }
+  
+  // And try after window load (in case scripts load late)
+  window.addEventListener('load', () => {
+    setTimeout(initializeGoogleAPIs, 100);
+  });
+  
+  // Poll for Google APIs (fallback for async scripts)
+  let pollCount = 0;
+  const pollInterval = setInterval(() => {
+    pollCount++;
+    if (pollCount > 50) {
+      clearInterval(pollInterval);
+      return;
+    }
+    
+    if ((typeof google !== 'undefined' && google.accounts && typeof window.gisLoaded === 'function') ||
+        (typeof gapi !== 'undefined' && typeof window.gapiLoaded === 'function')) {
+      initializeGoogleAPIs();
+      if (typeof google !== 'undefined' && google.accounts && typeof gapi !== 'undefined') {
+        clearInterval(pollInterval);
+      }
+    }
+  }, 200);
+</script>
+<script type="module" src="src/js/googleCalendar.js"></script>
 </body>
 </html>

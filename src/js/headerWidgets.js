@@ -1,8 +1,7 @@
-// Live Clock Display
+// Header Widgets - Live Clock
 // 
+// Handles the live clock capsule display in the header.
 // Updates the header clock capsule with current time and date every second.
-// Formats time as HH:MM:SS and date as "Weekday, Month DD, YYYY".
-// Runs continuously in the background to keep the display synchronized with system time.
 
 // Update clock display with current time and date
 function updateClock() {
@@ -36,3 +35,32 @@ document.addEventListener('DOMContentLoaded', () => {
   updateClock();
   setInterval(updateClock, 1000); // Update every second
 });
+
+// Open the Google Calendar panel (for iframe view)
+export function openGooglePanel() {
+  const panel = document.getElementById('googleCalendarPanel');
+  const iframeContainer = document.getElementById('googleCalendarIframeContainer');
+  const eventsContainer = document.getElementById('googleEventsListContainer');
+  
+  if (panel) {
+    panel.classList.remove('hidden');
+    
+    // Show iframe, hide events
+    if (iframeContainer) iframeContainer.classList.remove('hidden');
+    if (eventsContainer) eventsContainer.classList.add('hidden');
+  }
+}
+
+// Close the Google Calendar panel with animation
+export function closeGooglePanel() {
+  const panel = document.getElementById('googleCalendarPanel');
+  const container = panel?.querySelector('.google-calendar-panel__container');
+  
+  if (panel && container) {
+    container.classList.add('closing');
+    setTimeout(() => {
+      panel.classList.add('hidden');
+      container.classList.remove('closing');
+    }, 200);
+  }
+}

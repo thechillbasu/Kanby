@@ -85,6 +85,7 @@ function handleDrop(event) {
       }
     }
     
+    setNotes(notes);
     saveNotes(notes);
     window.dispatchEvent(new CustomEvent('notesUpdated'));
   }

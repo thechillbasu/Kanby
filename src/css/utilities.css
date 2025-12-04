@@ -74,6 +74,11 @@
   background: rgba(0, 240, 255, 0.3);
   color: var(--text-primary);
 }
+/* Utility class for hiding elements */
+.hidden {
+  display: none !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
