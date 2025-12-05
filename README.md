@@ -10,16 +10,22 @@ A modern, feature-rich task management application built with vanilla HTML, CSS,
 
 ### Task Management
 - Drag-and-drop task organization across To Do, In Progress, and Done columns
-- Priority levels (High, Medium, Low) with visual color-coded badges
+- Priority levels (High, Medium, Low) with distinct color-coded badges
+  - High: Red for urgent tasks
+  - Medium: Orange for normal priority
+  - Low: Blue for less urgent tasks
 - Task descriptions with rich text support
 - Due dates with color-coded urgency indicators (overdue, urgent, upcoming)
 - Automatic sorting by priority within each column
+- Comprehensive task details modal with all task information
 
 ### Time Tracking
 - Automatic timer for tasks moved to In Progress column
-- Real-time elapsed time display for active tasks
-- Total time spent tracking across multiple sessions
-- Completion time display for finished tasks
+- Real-time elapsed time display for active tasks (HH:MM:SS format)
+- Persistent time tracking across page refreshes and sessions
+- Accumulative time tracking when tasks move in and out of In Progress
+- Completion time display for finished tasks in human-readable format
+- Timer state preserved during all operations (add, edit, delete tasks)
 
 ### User Interface
 - Modern dark/light theme toggle with cyberpunk neon aesthetics
@@ -40,9 +46,11 @@ A modern, feature-rich task management application built with vanilla HTML, CSS,
 - Better visibility for event items in both dark and light modes
 
 ### Data Persistence
-- Automatic localStorage persistence for all tasks
-- Data migration support for backward compatibility
+- Automatic localStorage persistence for all tasks and timer states
+- Data migration support for backward compatibility with older versions
+- Timer start times persisted to maintain accuracy across sessions
 - Storage availability detection with user warnings
+- All task data stored locally in browser (no external servers)
 
 ## Getting Started
 
@@ -132,14 +140,16 @@ KanbanStickyNotes-SimpleCopy/
 ### Time Tracking
 - Tasks automatically start tracking time when moved to In Progress
 - The timer displays elapsed time in real-time (HH:MM:SS format)
-- Time accumulates across multiple sessions
-- Completed tasks show total time spent in a human-readable format
+- Time accumulates across multiple sessions and persists through page refreshes
+- Timer continues accurately even when adding, editing, or deleting other tasks
+- Completed tasks show total time spent in a human-readable format (e.g., "2 hours 15 minutes 30 seconds")
 
 ### Google Calendar
-1. Click "Connect Google" button in the header
-2. Authorize the application to access your calendar
-3. Click "My Calendar" to view upcoming events
-4. Events are displayed with title, date, time, and location
+1. Click the live clock widget to view the public holiday calendar
+2. Click "My Events" button in the header to connect your personal calendar
+3. Authorize the application to access your calendar (OAuth 2.0)
+4. View your upcoming events with title, date, time, and location
+5. Switch between holiday calendar iframe and personal events list
 
 ### Theme Switching
 - Click the theme toggle button in the header to switch between dark and light modes
@@ -154,6 +164,11 @@ The application follows a modular architecture with clear separation of concerns
 - **Modals**: Dialog management in `modals.js`
 - **Formatting**: Date/time utilities in `formatters.js`
 - **Orchestration**: Main application logic in `main.js`
+- **Time Tracking**: TimerManager class in `timer.js` with persistent state
+- **Storage**: localStorage operations with migration in `storage.js`
+- **Drag & Drop**: HTML5 drag-and-drop API in `dragDrop.js`
+- **Theme**: Dark/light mode switching in `theme.js`
+- **Event-Driven**: Custom events for cross-module communication
 
 ### Browser Compatibility
 Works in all modern browsers that support:
@@ -164,7 +179,12 @@ Works in all modern browsers that support:
 - CSS Custom Properties (CSS Variables)
 
 ### Storage
-All task data is stored locally in the browser's localStorage. No data is sent to external servers except when using Google Calendar integration (which requires explicit user authorization).
+All task data is stored locally in the browser's localStorage, including:
+- Task details (text, description, priority, due date)
+- Time tracking data (timeSpent, timerStartTime)
+- Task metadata (createdAt, lastEditedAt, startedAt, completedAt)
+
+No data is sent to external servers except when using Google Calendar integration (which requires explicit user authorization). The application works completely offline once loaded.
 
 ## Development
 
@@ -175,9 +195,11 @@ npm test
 
 ### Code Style
 - JavaScript: camelCase for variables and functions, PascalCase for classes
-- CSS: kebab-case for class names, camelCase for CSS variables
-- Comments: Simple single-line or multi-line block comments
+- CSS: camelCase for class names (e.g., `.appHeader`, `.taskCard`, `.priorityBadge`)
+- CSS Variables: kebab-case with double dashes (e.g., `--priority-high`, `--bg-card`)
+- Comments: File headers and concise single-line comments
 - Consistent 2-space indentation throughout
+- ES6+ features (arrow functions, template literals, destructuring)
 
 ## License
 
