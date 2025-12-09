@@ -202,13 +202,82 @@ body:not(.darkMode) .statusBadge.statusDone {
   background: var(--bg-card-hover);
   border-color: var(--text-secondary);
 }
+/* Responsive styles for details viewer modal */
 @media (max-width: 768px) {
   .detailRow {
     grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+  
+  .detailSection {
+    padding: var(--space-md);
+  }
+  
+  .detailLabel {
+    font-size: var(--font-size-sm);
+  }
+  
+  .detailValue {
+    font-size: var(--font-size-sm);
   }
 }
+
 @media (max-width: 480px) {
   .taskDetailsModal .modalFooter {
     flex-direction: column-reverse;
+    gap: var(--space-sm);
+  }
+  
+  .detailSection {
+    padding: var(--space-sm) var(--space-md);
+    margin-bottom: var(--space-sm);
+  }
+  
+  .detailLabel {
+    font-size: 13px;
+    margin-bottom: var(--space-xs);
+  }
+  
+  .detailValue {
+    font-size: 14px;
+  }
+  
+  .detailValue.taskName {
+    font-size: var(--font-size-base);
+  }
+  
+  .detailValue.description {
+    font-size: 14px;
+  }
+  
+  .priorityBadge {
+    font-size: 11px;
+    padding: 4px 10px;
+  }
+  
+  .statusBadge {
+    font-size: 11px;
+    padding: 4px 10px;
+  }
+  
+  .btnDelete,
+  .btnEdit,
+  .btnClose {
+    padding: var(--space-sm) var(--space-md);
+    font-size: var(--font-size-sm);
+  }
+}
+
+@media (max-width: 360px) {
+  .detailSection {
+    padding: var(--space-xs) var(--space-sm);
+  }
+  
+  .detailLabel {
+    font-size: 12px;
+  }
+  
+  .detailValue {
+    font-size: 13px;
   }
 }

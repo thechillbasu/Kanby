@@ -450,3 +450,110 @@ body:not(.darkMode) .googleEventItem:hover {
   padding: var(--space-md);
   font-size: var(--font-size-sm);
 }
+
+/* Responsive Google Calendar panel */
+@media (max-width: 768px) {
+  .googleCalendarPanelContainer {
+    width: calc(100vw - 32px);
+    max-width: none;
+    max-height: 88vh;
+  }
+  
+  .googleCalendarPanelHeader {
+    padding: var(--space-md);
+  }
+  
+  .googleCalendarPanelHeader h2 {
+    font-size: var(--font-size-lg);
+  }
+  
+  .googleHolidayCalendarIframe {
+    height: 450px;
+    min-height: 350px;
+  }
+  
+  .googleEventsList {
+    padding: var(--space-sm);
+  }
+  
+  .googleEventItem {
+    padding: var(--space-sm) var(--space-md);
+  }
+}
+
+@media (max-width: 480px) {
+  .googleCalendarPanelContainer {
+    width: calc(100vw - 24px);
+    max-height: 90vh;
+    border-radius: var(--radius-md);
+  }
+  
+  .googleCalendarPanelHeader {
+    padding: var(--space-sm) var(--space-md);
+  }
+  
+  .googleCalendarPanelHeader h2 {
+    font-size: var(--font-size-base);
+  }
+  
+  .closeBtn {
+    width: 32px;
+    height: 32px;
+    font-size: 24px;
+  }
+  
+  .googleHolidayCalendarIframe {
+    height: 400px;
+    min-height: 300px;
+  }
+  
+  .googleCalendarPanelContent {
+    padding: var(--space-xs);
+  }
+  
+  .googleEventsList {
+    padding: var(--space-xs) var(--space-sm);
+  }
+  
+  .googleEventItem {
+    padding: var(--space-sm);
+  }
+  
+  .googleEventTitle {
+    font-size: 13px;
+  }
+  
+  .googleEventTime,
+  .googleEventLocation {
+    font-size: 11px;
+  }
+  
+  .googleEventsEmpty,
+  .googleEventsLoading {
+    font-size: 13px;
+    padding: var(--space-lg) var(--space-sm);
+  }
+}
+
+@media (max-width: 360px) {
+  .googleCalendarPanelContainer {
+    width: calc(100vw - 16px);
+  }
+  
+  .googleCalendarPanelHeader {
+    padding: var(--space-xs) var(--space-sm);
+  }
+  
+  .googleCalendarPanelHeader h2 {
+    font-size: var(--font-size-sm);
+  }
+  
+  .googleHolidayCalendarIframe {
+    height: 350px;
+    min-height: 280px;
+  }
+  
+  .googleEventItem {
+    padding: var(--space-xs) var(--space-sm);
+  }
+}

@@ -61,6 +61,34 @@ body::before {
   padding: var(--space-lg);
   position: relative;
   z-index: 1;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Container responsive adjustments */
+@media (max-width: 1024px) {
+  .container {
+    max-width: 100%;
+    padding: var(--space-md);
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: var(--space-md) var(--space-sm);
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: var(--space-sm);
+  }
+}
+
+@media (max-width: 360px) {
+  .container {
+    padding: var(--space-xs) var(--space-sm);
+  }
 }
 
 /* Custom scrollbar styling */

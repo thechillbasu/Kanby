@@ -333,3 +333,105 @@ body:not(.darkMode) .dueDateGroup {
   width: 0 !important;
   height: 0 !important;
 }
+
+/* Responsive styles for editor modal */
+@media (max-width: 768px) {
+  .formGroup {
+    margin-bottom: var(--space-lg);
+  }
+  
+  .formGroup label {
+    font-size: var(--font-size-sm);
+  }
+  
+  .formGroup input,
+  .formGroup textarea,
+  .formGroup select {
+    font-size: var(--font-size-sm);
+    padding: var(--space-md);
+  }
+  
+  .dateTimePickerPopup {
+    width: 100%;
+    max-width: none;
+  }
+  
+  .btnSelectDateTime {
+    padding: var(--space-md);
+    font-size: var(--font-size-sm);
+  }
+}
+
+@media (max-width: 480px) {
+  .formGroup {
+    margin-bottom: var(--space-md);
+  }
+  
+  .formGroup label {
+    font-size: 13px;
+    margin-bottom: var(--space-xs);
+  }
+  
+  .formGroup input,
+  .formGroup select {
+    padding: var(--space-sm) var(--space-md);
+    font-size: 14px;
+  }
+  
+  .formGroup textarea {
+    padding: var(--space-sm) var(--space-md);
+    font-size: 14px;
+    rows: 3;
+  }
+  
+  .dateTimePicker {
+    padding: var(--space-md);
+    gap: var(--space-sm);
+  }
+  
+  .pickerLabel {
+    font-size: 13px;
+  }
+  
+  .dateInput,
+  .timeInput {
+    padding: var(--space-sm) var(--space-md);
+    font-size: 14px;
+  }
+  
+  .btnDonePicker {
+    padding: var(--space-sm) var(--space-md);
+    font-size: var(--font-size-sm);
+  }
+  
+  .btnSelectDateTime {
+    padding: var(--space-sm) var(--space-md);
+    font-size: 13px;
+  }
+  
+  .dueDateHint {
+    font-size: 11px;
+    padding: var(--space-xs) var(--space-sm);
+  }
+  
+  .btnClearDueDate {
+    padding: var(--space-xs) var(--space-sm);
+    font-size: 13px;
+  }
+  
+  .lastEdited {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 360px) {
+  .formGroup input,
+  .formGroup textarea,
+  .formGroup select {
+    font-size: 13px;
+  }
+  
+  .btnSelectDateTime {
+    font-size: 12px;
+  }
+}

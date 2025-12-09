@@ -91,7 +91,7 @@
   color: var(--text-primary);
   line-height: 1.4;
   margin-bottom: var(--space-xs);
-  margin-top: var(--space-lg);
+  margin-top: var(--space-xl);
   padding-right: var(--space-sm);
   padding-left: var(--space-xs);
   position: relative;
@@ -100,6 +100,7 @@
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   max-height: 2.8em;
 }
@@ -180,10 +181,15 @@
   color: var(--text-secondary);
   font-size: 11px;
   cursor: pointer;
-  padding: 4px 8px;
+  padding: 5px 9px;
   border-radius: var(--radius-sm);
   transition: all var(--transition-fast);
   opacity: 0.7;
+  z-index: 10;
+  min-width: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 .stickyNote:hover .editBtn,
 .stickyNote:hover .deleteBtn {
@@ -197,10 +203,10 @@ body:not(.darkMode) .deleteBtn {
   box-shadow: 0 2px 8px rgba(31, 35, 40, 0.15);
 }
 .editBtn {
-  right: 36px;
+  right: 46px;
 }
 .deleteBtn {
-  right: 6px;
+  right: 8px;
 }
 .editBtn:hover {
   color: var(--accent-neon-cyan);
@@ -234,32 +240,138 @@ body:not(.darkMode) .editBtn:active,
 body:not(.darkMode) .deleteBtn:active {
   transform: scale(1.05) translateY(0);
 }
-@media (max-width: 768px) {
+/* Tablet responsive */
+@media (max-width: 1024px) {
   .stickyNote {
-    padding: var(--space-sm) var(--space-md);
+    padding: var(--space-md);
   }
+  
   .noteText {
     font-size: var(--font-size-sm);
-    margin-top: var(--space-md);
+    margin-top: var(--space-xl);
   }
 }
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .stickyNote {
+    padding: var(--space-md);
+    min-height: 80px;
+  }
+  
+  .noteText {
+    font-size: var(--font-size-sm);
+    margin-top: var(--space-xl);
+    padding-right: 80px;
+  }
+  
+  .editBtn,
+  .deleteBtn {
+    top: 8px;
+    padding: 7px 10px;
+    font-size: 11px;
+    min-width: 40px;
+  }
+  
+  .editBtn {
+    right: 58px;
+  }
+  
+  .deleteBtn {
+    right: 8px;
+  }
+  
+  .noteTimestamp,
+  .timerDisplay,
+  .completedTimeDisplay,
+  .completedDate {
+    font-size: 10px;
+  }
+  
+  .noteDueDate {
+    font-size: 10px;
+    padding: 4px var(--space-sm);
+  }
+}
+
+/* Small mobile responsive */
 @media (max-width: 480px) {
   .stickyNote {
     padding: var(--space-sm) var(--space-md);
+    min-height: 70px;
   }
+  
   .noteText {
     font-size: var(--font-size-sm);
+    margin-top: var(--space-xl);
+    padding-right: 70px;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    max-height: 4.2em;
   }
+  
   .editBtn,
   .deleteBtn {
     opacity: 1;
+    padding: 6px 9px;
+    font-size: 10px;
+    top: 6px;
+    min-width: 38px;
+  }
+  
+  .editBtn {
+    right: 54px;
+  }
+  
+  .deleteBtn {
+    right: 6px;
+  }
+  
+  .descriptionIndicator {
+    font-size: 11px;
+  }
+  
+  .noteTimestamp,
+  .timerDisplay,
+  .completedTimeDisplay,
+  .completedDate {
+    font-size: 9px;
+  }
+  
+  .noteDueDate {
+    font-size: 9px;
+    padding: 3px 6px;
+  }
+  
+  .noteDueDate i {
+    font-size: 8px;
+  }
+}
+
+/* Extra small mobile */
+@media (max-width: 360px) {
+  .stickyNote {
     padding: var(--space-sm);
   }
-  .editBtn {
-    right: 36px;
+  
+  .noteText {
+    font-size: 13px;
+    margin-top: var(--space-lg);
+    padding-right: 64px;
   }
-  .priorityBadge {
+  
+  .editBtn,
+  .deleteBtn {
+    padding: 5px 8px;
     font-size: 9px;
-    padding: 3px 8px;
+    min-width: 36px;
+  }
+  
+  .editBtn {
+    right: 50px;
+  }
+  
+  .deleteBtn {
+    right: 5px;
   }
 }

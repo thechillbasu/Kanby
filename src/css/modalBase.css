@@ -137,20 +137,91 @@ body:not(.darkMode) .modalFooter {
   cursor: pointer;
   transition: all var(--transition-base);
 }
+/* Tablet responsive */
+@media (max-width: 768px) {
+  .modalContent {
+    width: 92%;
+    max-width: 550px;
+  }
+  
+  .modalHeader {
+    padding: var(--space-lg);
+  }
+  
+  .modalHeader h2 {
+    font-size: var(--font-size-lg);
+  }
+  
+  .modalBody {
+    padding: var(--space-lg);
+  }
+  
+  .modalFooter {
+    padding: var(--space-md) var(--space-lg);
+    gap: var(--space-sm);
+  }
+}
+
+/* Mobile responsive */
 @media (max-width: 480px) {
   .modalContent {
     width: 95%;
+    max-width: none;
     max-height: 95vh;
+    border-radius: var(--radius-md);
   }
-  .modalHeader,
-  .modalBody,
-  .modalFooter {
+  
+  .modalHeader {
     padding: var(--space-md);
   }
-  .modalFooter {
-    flex-direction: column;
+  
+  .modalHeader h2 {
+    font-size: var(--font-size-base);
   }
+  
+  .modalClose {
+    width: 32px;
+    height: 32px;
+    font-size: 24px;
+  }
+  
+  .modalBody {
+    padding: var(--space-md);
+  }
+  
+  .modalFooter {
+    padding: var(--space-md);
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+  
   .modalFooter button {
-    width: 100%;
+    flex: 1 1 100%;
+    min-width: 100%;
+    padding: var(--space-md);
+  }
+}
+
+/* Extra small mobile */
+@media (max-width: 360px) {
+  .modalContent {
+    width: 98%;
+    max-height: 98vh;
+  }
+  
+  .modalHeader {
+    padding: var(--space-sm) var(--space-md);
+  }
+  
+  .modalHeader h2 {
+    font-size: var(--font-size-sm);
+  }
+  
+  .modalBody {
+    padding: var(--space-sm) var(--space-md);
+  }
+  
+  .modalFooter {
+    padding: var(--space-sm) var(--space-md);
   }
 }

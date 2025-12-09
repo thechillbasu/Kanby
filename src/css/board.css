@@ -182,13 +182,31 @@
   box-shadow: 0 0 20px currentColor;
 }
 
+/* Large tablet - 2 columns */
+@media (max-width: 1200px) {
+  .board {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-xl);
+  }
+  
+  .boardColumn:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
 /* Tablet view - stack columns vertically */
 @media (max-width: 1024px) {
   .board {
     grid-template-columns: 1fr;
+    gap: var(--space-xl);
   }
+  
   .boardColumn {
-    min-height: 300px;
+    min-height: 350px;
+  }
+  
+  .boardColumn:last-child {
+    grid-column: auto;
   }
 }
 
@@ -198,11 +216,22 @@
     gap: var(--space-lg);
     padding: var(--space-sm);
   }
+  
   .boardColumn {
     padding: var(--space-lg);
+    min-height: 300px;
   }
+  
   .boardColumn h2 {
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-xl);
+    margin: calc(-1 * var(--space-lg)) calc(-1 * var(--space-lg)) var(--space-lg);
+    padding: var(--space-lg) var(--space-lg) var(--space-md);
+  }
+  
+  .notesContainer {
+    max-height: 400px;
+    padding-right: var(--space-sm);
+    margin-right: calc(-1 * var(--space-sm));
   }
 }
 
@@ -212,17 +241,48 @@
     gap: var(--space-md);
     padding: 0;
   }
+  
   .boardColumn {
     padding: var(--space-md);
-    min-height: 300px;
+    min-height: 280px;
+    border-radius: var(--radius-lg);
   }
+  
+  .boardColumn h2 {
+    font-size: var(--font-size-lg);
+    margin: calc(-1 * var(--space-md)) calc(-1 * var(--space-md)) var(--space-md);
+    padding: var(--space-md) var(--space-md) var(--space-sm);
+    letter-spacing: 1px;
+  }
+  
+  .notesContainer {
+    min-height: 220px;
+    max-height: 350px;
+    gap: var(--space-sm);
+    padding-top: var(--space-md);
+    padding-bottom: var(--space-md);
+  }
+}
+
+/* Extra small mobile */
+@media (max-width: 360px) {
+  .board {
+    gap: var(--space-sm);
+  }
+  
+  .boardColumn {
+    padding: var(--space-sm);
+    min-height: 250px;
+  }
+  
   .boardColumn h2 {
     font-size: var(--font-size-base);
-    margin-bottom: var(--space-md);
-    padding-bottom: var(--space-sm);
+    margin: calc(-1 * var(--space-sm)) calc(-1 * var(--space-sm)) var(--space-sm);
+    padding: var(--space-sm) var(--space-sm) var(--space-xs);
   }
+  
   .notesContainer {
-    min-height: 250px;
-    gap: var(--space-sm);
+    min-height: 200px;
+    max-height: 300px;
   }
 }
